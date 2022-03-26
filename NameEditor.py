@@ -7,25 +7,52 @@ abstract
 
 import os
 import pdb
+import tkinter as tk
 
-pdb.set_trace()
+root = tk.Tk()
+root.title("Batch Editor")
+canvas = tk.Canvas(root, height=500, width=500, bg='black')
+canvas.pack()
 
-path = input("enter directory path: ")
-name = input("enter name of show: ")
+frame = tk.Frame(root, bg="black")
+frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
+label = tk.Label(frame, text="Only works for files downloaded from animepahe.com", fg="cyan",bg="black")
+label.pack()
 
-os.chdir(path)
-files = list(os.listdir())
-print(files)
+input_path = tk.Text(frame, height=2, width=20)
+input_path.pack()
+input_name = tk.Text(frame, height=2, width=20)
+input_name.pack()
 
-for i in range(1, len(files) + 1):
-    if i < 10:
-        snip = f"_-_0{i}"
-    else:
-        snip = f"_-_{i}"
 
-    for file in files:
-        if snip in file:
-            new_name = fr"{path}\{name} ep{i}.mp4"
-            print(new_name)
-            os.rename(file, new_name)
+def getInput():
+    path = input_path.get(1.0, "end-1c")
+    name = input_name.get(1.0, "end-1c")
 
+    return path, name
+
+
+def Process():
+    tk.Label(frame, text="Files updated: ", fg="cyan", bg="black").pack()
+    path, name = getInput()
+    os.chdir(path)
+    files = list(os.listdir())
+    print(files)
+
+    for i in range(1, len(files) + 1):
+        if i < 10:
+            snip = f"_-_0{i}"
+        else:
+            snip = f"_-_{i}"
+
+        for file in files:
+            if snip in file:
+                new_name = fr"{path}\{name} ep{i}.mp4"
+                tk.Label(frame, text=new_name,fg="cyan", bg="black").pack()
+                os.rename(file, new_name)
+
+
+submit = tk.Button(frame, text="Enter", padx=10, pady=5, fg="black", bg="cyan", anchor="s", command=Process)
+submit.pack()
+
+root.mainloop()
