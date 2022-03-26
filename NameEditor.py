@@ -11,17 +11,21 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title("Batch Editor")
+root.resizable(False, False)
 canvas = tk.Canvas(root, height=500, width=500, bg='black')
 canvas.pack()
 
 frame = tk.Frame(root, bg="black")
 frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
-label = tk.Label(frame, text="Only works for files downloaded from animepahe.com", fg="cyan",bg="black")
+label = tk.Label(frame, text="Only works for files downloaded from animepahe.com", fg="cyan", bg="black")
 label.pack()
 
-input_path = tk.Text(frame, height=2, width=20)
+tk.Label(frame, text="Path", fg="cyan", bg="black").pack()
+input_path = tk.Text(frame, height=1.5, width=20, name="path", background="black", bd=7, foreground="cyan",insertbackground="cyan", undo=True)
 input_path.pack()
-input_name = tk.Text(frame, height=2, width=20)
+
+tk.Label(frame, text="Name", fg="cyan", bg="black").pack()
+input_name = tk.Text(frame, height=1.5, width=20, name="name", background="black", bd=7, foreground="cyan",insertbackground="cyan", undo=True)
 input_name.pack()
 
 
@@ -48,11 +52,11 @@ def Process():
         for file in files:
             if snip in file:
                 new_name = fr"{path}\{name} ep{i}.mp4"
-                tk.Label(frame, text=new_name,fg="cyan", bg="black").pack()
+                tk.Label(frame, text=new_name, fg="cyan", bg="black").pack()
                 os.rename(file, new_name)
 
 
 submit = tk.Button(frame, text="Enter", padx=10, pady=5, fg="black", bg="cyan", anchor="s", command=Process)
-submit.pack()
+submit.pack(pady=10)
 
 root.mainloop()
