@@ -1,3 +1,7 @@
+import os
+import shutil
+import sys
+
 """
 requirements:
     []reads directory
@@ -20,10 +24,6 @@ abstract:
     
 """
 
-import os
-import shutil
-import sys
-
 
 class Directory:
     def __init__(self, path):
@@ -41,15 +41,18 @@ def readDir(directory):
     directory = os.path.normpath(directory)
     os.chdir(directory)
     files = []
+
     for file in os.listdir():
-        files.append(os.path.dirname(sys.argv[1]) + file)
+        files.append(sys.argv[1] + "\\" + file)
         print(file)
-        if os.path.isdir(file):
-            readDir(file)
+    print("------------")
+    return files
 
 
 def loadData(data):
     pass
+    # TODO
 
 
-readDir(sys.argv[1])
+files = readDir(sys.argv[1])
+
