@@ -2,7 +2,7 @@
 abstract
     [] read files in given directory.
     [] look for the pattern '_-_n' in filename, where n is the episode number, if n <10, it should be in 0n form.
-    []renames file name to '<name> ep<n> where name and n are given.
+    [] renames file name to '<name> ep<n> where name and n are given.
 """
 
 import os
